@@ -16,7 +16,8 @@ import {
 
 import Navbar from "./components/Navbar";
 import Profile from "./screens/Profile";
-export const local_url = "http://localhost:3000/";
+export const local_url =
+  "http://auth-be-env.eba-pxaexui4.eu-north-1.elasticbeanstalk.com/";
 export const base_url =
   "http://auth-be-env.eba-pxaexui4.eu-north-1.elasticbeanstalk.com/";
 

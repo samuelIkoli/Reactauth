@@ -73,7 +73,7 @@ function Login() {
                 className="form-control"
                 id="email"
                 placeholder="name@example.com"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={validateEmail}
               />
               <label htmlFor="email">Email address</label>
               {!valid ? (
