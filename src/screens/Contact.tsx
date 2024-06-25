@@ -1,16 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import "../App.css";
 import axios from "axios";
+import { local_url } from "..";
 
-const amazon: string =
-  "http://auth-be-env.eba-pxaexui4.eu-north-1.elasticbeanstalk.com/";
-const local: string = "http://localhost:3000/";
 const Contact = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${amazon}users`);
+        const response = await axios.get(`${local_url}users`);
         setUsers(response.data.data);
       } catch (error) {
         console.log("error oh!!!");
