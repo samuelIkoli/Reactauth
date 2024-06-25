@@ -11,7 +11,7 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [success, setSuccess] = useState(0);
+  const [success, setSuccess] = useState(1);
 
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
@@ -32,7 +32,7 @@ const Register = () => {
       setFailed(0);
     }
     if (!email || !username || !phone || !password || !password2) {
-      return alert("All fields are required");
+      return setSuccess(0);
     }
     const userData: any = {
       username,
@@ -70,9 +70,13 @@ const Register = () => {
         <div className="container d-flex justify-content-center">
           <form action="">
             {/* \ */}
-            <div className="alert alert-danger" role="alert">
-              A simple danger alert—check it out!
-            </div>
+            {!success ? (
+              <div className="alert alert-danger" role="alert">
+                Please input all fields correctly
+              </div>
+            ) : (
+              ""
+            )}
             <div className="form-floating mb-3">
               <input
                 type="email"
