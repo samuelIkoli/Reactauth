@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { local_url } from "..";
+import { local_url, AuthContext } from "..";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const EnterOTP = (props) => {
+  const log = useContext(AuthContext);
+  const navigate = useNavigate();
   const [QR, setQR] = useState([]);
   const [OTP, setOTP] = useState("");
   const [success, setSuccess] = useState(0);
 
   const handleOTP = async () => {
-    console.log(OTP);
     if (!OTP || OTP.length < 6) {
       return alert("OTP has to be 6 digits");
     }
-    const user_id = localStorage.getItem("user_id");
+    const user_id = props.user.id;
+    const user = props.user;
     const user_data = {
       otp: OTP,
       user_id,
@@ -24,10 +27,16 @@ const EnterOTP = (props) => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.status);
       if (response.status === 200) {
         setSuccess(1);
-        alert("Logged in");
+        localStorage.setItem("username", user.username);
+        localStorage.setItem("two_fa", user.two_fa);
+        localStorage.setItem("token", user.token);
+        localStorage.setItem("user_id", user_id);
+        log.setIsLoggedIn(true);
+        setTimeout(() => {
+          navigate("/profile");
+        }, 2000);
       }
     } catch (error) {
       if (error.response) {

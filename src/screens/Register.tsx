@@ -67,8 +67,12 @@ const Register = () => {
         <div>
           <h1>Register below</h1>
         </div>
-        <div>
+        <div className="container d-flex justify-content-center">
           <form action="">
+            {/* \ */}
+            <div className="alert alert-danger" role="alert">
+              A simple danger alert—check it out!
+            </div>
             <div className="form-floating mb-3">
               <input
                 type="email"

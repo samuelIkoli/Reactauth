@@ -1,6 +1,9 @@
 import React from "react";
 
 const Navbar = () => {
+  const handleLogout = () => {
+    localStorage.clear();
+  };
   return (
     <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-light">
       <div className="container-fluid w-100">
@@ -41,9 +44,10 @@ const Navbar = () => {
             <a
               className="nav-link menu active"
               aria-current="page"
-              href="/contact"
+              href="/"
+              onClick={handleLogout}
             >
-              Contact
+              Logout
             </a>
           </div>
         </div>

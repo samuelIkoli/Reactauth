@@ -24,15 +24,19 @@ const AuthContext = createContext({});
 
 const AuthProvider = (props: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("jwt_token") ? true : false
+    localStorage.getItem("token") ? true : false
   );
 
+  const [user, setUser] = useState({});
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
       {props.children}
     </AuthContext.Provider>
   );
 };
+
+export { AuthConsumer, AuthContext, AuthProvider };
 
 const AuthConsumer = AuthContext.Consumer;
 

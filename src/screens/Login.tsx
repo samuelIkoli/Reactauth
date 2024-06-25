@@ -1,31 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../App.css";
 import axios from "axios";
-import { local_url } from "..";
+import { AuthContext, local_url } from "..";
 import EnterOTP from "../modals/EnterOTP";
+import { useNavigate } from "react-router-dom";
 
 // const handleSubmit = () => {};
 
 function Login() {
+  const navigate = useNavigate();
+  const log = useContext(AuthContext);
   const [email, setEmail] = useState("");
+  const [user_data, setUserData] = useState("");
   const [password, setPassword] = useState("");
-  const [valid, setValid] = useState(1);
-  const [success, setSuccess] = useState(0);
+  const [wrong, setWrong] = useState(false);
+  const [valid, setValid] = useState(true);
+  const [success, setSuccess] = useState(true);
   const [auth, setAuth] = useState(false);
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
   const validateEmail = (e: any) => {
+    e.preventDefault();
     if (e.target?.value && e.target.value.match(isValidEmail)) {
       setEmail(e.target.value);
-      setValid(1);
+      setValid(true);
     } else {
-      setValid(0);
+      setValid(false);
     }
   };
-  const handleLogin = async () => {
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
     console.log(email, password);
     if (!email || !password) {
-      return alert("All fields are required");
+      return setSuccess(false);
     }
     const userData: any = {
       password,
@@ -39,21 +46,25 @@ function Login() {
       });
       // console.log(response.data.data.token);
       const user = response.data.data;
-      console.log(user);
+      setUserData(user);
       if (user.two_fa === 1) {
         setAuth(true);
-      }
-      if (response.status === 200) {
-        setSuccess(1);
+      } else {
+        localStorage.setItem("username", user.username);
+        localStorage.setItem("two_fa", user.two_fa);
         localStorage.setItem("token", response.data.data.token);
         localStorage.setItem("user_id", response.data.data.id);
-        alert("Logged in");
+        navigate("/profile");
+      }
+      if (response.status === 200) {
+        setSuccess(true);
       }
     } catch (error: any) {
       if (error.response) {
+        setWrong(true);
         console.error("Error response:", error.response.data);
-        alert(error.response.data.message);
       } else {
+        alert("error.response.data.message");
         console.error("Error message:", error.message);
       }
     }
@@ -65,8 +76,24 @@ function Login() {
         <div>
           <h1>Enter your login credentials</h1>
         </div>
-        <div>
+        <div className="container d-flex justify-content-center">
           <form action="submit" onSubmit={handleLogin}>
+            {/*  */}
+            {!success ? (
+              <div className="alert alert-danger" role="alert">
+                Please input all fields correctly
+              </div>
+            ) : (
+              ""
+            )}
+            {wrong ? (
+              <div className="alert alert-danger" role="alert">
+                Invalid username or password
+              </div>
+            ) : (
+              ""
+            )}
+
             <div className="form-floating mb-3">
               <input
                 type="email"
@@ -104,7 +131,11 @@ function Login() {
             </button>
           </form>
           <div></div>
-          <EnterOTP show={auth} onHide={() => setAuth(false)} />
+          <EnterOTP
+            show={auth}
+            user={user_data}
+            onHide={() => setAuth(false)}
+          />
         </div>
       </div>
     </div>
