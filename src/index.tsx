@@ -21,7 +21,7 @@ import {
   Link,
 } from "react-router-dom";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/MyNavbar";
 import Profile from "./screens/Profile";
 export const local_url = "https://auth-n-2fa.onrender.com/";
 export const base_url =

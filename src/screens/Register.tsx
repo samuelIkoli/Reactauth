@@ -134,7 +134,7 @@ const Register = () => {
                 placeholder="Password"
                 onChange={(e) => setPassword2(e.target.value)}
               />
-              <label htmlFor="password">Re-enter Your Password</label>
+              <label htmlFor="password">Re-enter Password</label>
               {/* conditional */}
               {failed ? (
                 <div className="d-flex justify-self-start text-danger">

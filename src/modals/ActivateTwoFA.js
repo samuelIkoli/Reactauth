@@ -18,7 +18,6 @@ const ActivateTwoFA = (props) => {
       } catch (error) {
         if (error.response) {
           console.error("Error response:", error.response.data);
-          alert(error.response.data.message);
         } else {
           console.error("Error message:", error.message);
         }
@@ -49,7 +48,9 @@ const ActivateTwoFA = (props) => {
     } catch (error) {
       if (error.response) {
         console.error("Error response:", error.response.data);
-        alert(error.response.data.message);
+        error.response.data.message === "Invalid 2FA token"
+          ? alert(error.response.data.message)
+          : console.log("");
       } else {
         console.error("Error message:", error.message);
       }
