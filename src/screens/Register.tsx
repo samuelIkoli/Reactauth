@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import axios from "axios";
 import { base_url, local_url } from "..";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [valid, setValid] = useState(1);
@@ -12,6 +13,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [success, setSuccess] = useState(1);
+  const Navigate = useNavigate();
 
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
@@ -22,7 +24,6 @@ const Register = () => {
     } else {
       setValid(0);
     }
-    console.log("base_url", base_url);
   };
 
   const handleRegister = async () => {
@@ -46,10 +47,10 @@ const Register = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.status);
       if (response.status === 201) {
         setSuccess(1);
-        alert("Success");
+        alert("Success registering user");
+        Navigate("/login");
       }
     } catch (error: any) {
       if (error.response) {

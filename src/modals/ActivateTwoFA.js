@@ -11,12 +11,10 @@ const ActivateTwoFA = (props) => {
     const fetchData = async () => {
       try {
         const user_id = localStorage.getItem("user_id");
-        console.log(user_id);
         const response = await axios.get(`${local_url}two-fa`, {
           params: { user_id },
         });
         setQR(response?.data?.data);
-        // console.log("it is", QR?.data_url);
       } catch (error) {
         if (error.response) {
           console.error("Error response:", error.response.data);
@@ -30,7 +28,6 @@ const ActivateTwoFA = (props) => {
   }, []);
 
   const handleOTP = async () => {
-    console.log(OTP);
     if (!OTP || OTP.length < 6) {
       return alert("OTP has to be 6 digits");
     }
@@ -45,7 +42,6 @@ const ActivateTwoFA = (props) => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response.status);
       if (response.status === 200) {
         setSuccess(1);
         alert("OTP activated successfully");
@@ -93,7 +89,6 @@ const ActivateTwoFA = (props) => {
               type="number"
               onChange={(e) => {
                 setOTP(e.target.value);
-                // console.log(OTP);
               }}
             />
             <button

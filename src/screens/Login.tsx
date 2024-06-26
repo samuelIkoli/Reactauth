@@ -5,11 +5,8 @@ import { AuthContext, local_url } from "..";
 import EnterOTP from "../modals/EnterOTP";
 import { useNavigate } from "react-router-dom";
 
-// const handleSubmit = () => {};
-
-function Login() {
+const Login: React.FC = () => {
   const navigate = useNavigate();
-  const log = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [user_data, setUserData] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +15,6 @@ function Login() {
   const [success, setSuccess] = useState(true);
   const [auth, setAuth] = useState(false);
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-
   const validateEmail = (e: any) => {
     e.preventDefault();
     if (e.target?.value && e.target.value.match(isValidEmail)) {
@@ -30,7 +26,6 @@ function Login() {
   };
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    console.log(email, password);
     if (!email || !password) {
       return setSuccess(false);
     }
@@ -44,7 +39,6 @@ function Login() {
           "Content-Type": "application/json",
         },
       });
-      // console.log(response.data.data.token);
       const user = response.data.data;
       setUserData(user);
       if (user.two_fa === 1) {
@@ -140,6 +134,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

@@ -11,7 +11,6 @@ const Contact = () => {
         const response = await axios.get(`${local_url}users`);
         setUsers(response.data.data);
       } catch (error) {
-        console.log("error oh!!!");
         console.error(error);
       }
     };

@@ -71,7 +71,6 @@ const EnterOTP = (props) => {
               type="number"
               onChange={(e) => {
                 setOTP(e.target.value);
-                // console.log(OTP);
               }}
             />
             <button

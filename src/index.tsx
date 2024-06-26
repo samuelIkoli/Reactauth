@@ -1,4 +1,11 @@
-import React, { useState, createContext, useContext } from "react";
+import React, {
+  useState,
+  createContext,
+  useContext,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -20,18 +27,24 @@ export const local_url = "https://auth-n-2fa.onrender.com/";
 export const base_url =
   "http://auth-be-env.eba-pxaexui4.eu-north-1.elasticbeanstalk.com/";
 
-const AuthContext = createContext({});
+interface AuthContextType {
+  user: any | null;
+  setUser: Dispatch<SetStateAction<null>>;
+  isLoggedIn: any | null;
+  setIsLoggedIn: Dispatch<SetStateAction<null>>;
+}
 
-const AuthProvider = (props: any) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("token") ? true : false
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthProvider = ({ children }: any) => {
+  const [isLoggedIn, setIsLoggedIn] = useState<any>(
+    !!localStorage.getItem("token")
   );
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<any>(null);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, user, setUser }}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 };
