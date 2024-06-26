@@ -31,6 +31,6 @@ This project requires nodeJS version >= 20 and npm package manager.
 
 ## 🔗 Link(s)
 
-- [You can interact with the frontend of this project here](reactauth-iota.vercel.app)
+- [Project URL](reactauth-iota.vercel.app)
 
 Built by SAMUEL IKOLI
