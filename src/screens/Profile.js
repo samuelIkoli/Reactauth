@@ -20,6 +20,9 @@ const Profile = () => {
         <div>
           <h1>Profile</h1>
         </div>
+        <div>
+          <h2>Welcome to your dashboard {username}</h2>
+        </div>
         {two_fa == 0 ? (
           <div>
             <Button variant="primary" onClick={() => setModalShow(true)}>
@@ -31,9 +34,7 @@ const Profile = () => {
             />
           </div>
         ) : (
-          <div>
-            <h2>Welcome to your dashboard {username}</h2>
-          </div>
+          ""
         )}
       </div>
     </div>
