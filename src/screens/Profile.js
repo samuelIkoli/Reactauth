@@ -8,16 +8,12 @@ import Modal from "react-bootstrap/Modal";
 
 const Profile = () => {
   const log = useContext(AuthContext);
-  useEffect(() => {
-    if (!log.isLoggedIn) {
-      navigate("/");
-    }
-  }, []);
-
+  console.log("log is", log.isLoggedIn);
   const navigate = useNavigate();
   const [modalShow, setModalShow] = React.useState(false);
   const two_fa = localStorage.getItem("two_fa");
   const username = localStorage.getItem("username");
+
   return (
     <div className="align-items-center d-flex align-items-center justify-content-center text-center">
       <div className="border p-5 rounded align-items-center container container-fluid">

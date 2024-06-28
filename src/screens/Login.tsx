@@ -48,7 +48,9 @@ const Login: React.FC = () => {
         localStorage.setItem("two_fa", user.two_fa);
         localStorage.setItem("token", response.data.data.token);
         localStorage.setItem("user_id", response.data.data.id);
-        navigate("/profile");
+        setTimeout(() => {
+          navigate("/profile");
+        }, 2000);
       }
       if (response.status === 200) {
         setSuccess(true);
